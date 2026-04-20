@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ex Pocket Comix — Comic Book Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --ink:#0A0A0A;
+  --cream:#FFF8E7;
+  --yellow:#FFD700;
+  --red:#D62828;
+  --blue:#1B4FD8;
+  --orange:#FF6B35;
+  --green:#2D6A4F;
+  --white:#FFFFFF;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+
+/* ── MARQUEE ── */
+.marquee-wrap{background:var(--ink);border-bottom:3px solid var(--yellow);overflow:hidden;padding:10px 0}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 18s linear infinite}
+.marquee-track span{font-family:'Bangers',cursive;font-size:1.1rem;letter-spacing:3px;color:var(--yellow);padding:0 2rem}
+.marquee-track span.dot{color:var(--red);padding:0}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:var(--cream);
+  border-bottom:4px solid var(--ink);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4rem;height:72px;
+}
+.nav-logo{
+  font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:3px;
+  color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-logo-badge{
+  background:var(--red);color:var(--white);
+  font-size:0.55rem;letter-spacing:1px;font-family:'DM Sans',sans-serif;font-weight:700;
+  padding:3px 7px;text-transform:uppercase;border:2px solid var(--ink);
+  transform:rotate(-3deg);display:inline-block;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{
+  font-weight:700;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  position:relative;padding-bottom:3px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:3px;
+  background:var(--red);transition:width 0.2s;
+}
+.nav-links a:hover::after{width:100%}
+
+/* ── HERO ── */
+.hero{
+  min-height:95vh;
+  background:var(--yellow);
+  border-bottom:5px solid var(--ink);
+  display:grid;grid-template-columns:55% 45%;
+  position:relative;overflow:hidden;
+}
+.hero-bg-lines{
+  position:absolute;inset:0;
+  background-image:repeating-linear-gradient(
+    -45deg,transparent,transparent 20px,
+    rgba(0,0,0,0.04) 20px,rgba(0,0,0,0.04) 21px
+  );
+  pointer-events:none;
+}
+.hero-dots{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(0,0,0,0.1) 1.5px,transparent 1.5px);
+  background-size:24px 24px;
+  pointer-events:none;
+}
+.hero-left{
+  padding:5rem 3rem 5rem 5rem;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:2;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:var(--white);
+  font-family:'Permanent Marker',cursive;font-size:0.95rem;
+  padding:6px 16px;border:3px solid var(--ink);
+  box-shadow:3px 3px 0 var(--ink);
+  transform:rotate(-1.5deg);
+  margin-bottom:2rem;width:fit-content;
+}
+.hero-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(5.5rem,10vw,10rem);
+  line-height:0.88;letter-spacing:4px;
+  color:var(--ink);
+  margin-bottom:2rem;
+}
+.hero-title .outline{
+  -webkit-text-stroke:4px var(--ink);
+  color:transparent;
+}
+.hero-title .fill-red{color:var(--red)}
+.hero-desc{
+  font-size:1.15rem;font-weight:500;line-height:1.6;
+  max-width:420px;
+  background:var(--ink);color:var(--cream);
+  padding:1rem 1.25rem;
+  border-left:6px solid var(--red);
+  margin-bottom:2.5rem;
+}
+.hero-stats{display:flex;gap:2rem;margin-top:1rem}
+.hero-stat{text-align:center}
+.hero-stat-num{
+  font-family:'Bangers',cursive;font-size:2.8rem;
+  color:var(--ink);line-height:1;letter-spacing:2px;
+}
+.hero-stat-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444}
+
+.hero-right{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  border-left:5px solid var(--ink);
+  background:var(--ink);overflow:hidden;
+}
+.hero-right-dots{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,215,0,0.15) 2px,transparent 2px);
+  background-size:20px 20px;
+}
+.comic-grid{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6px;padding:3rem 2.5rem;
+  width:100%;
+}
+.cg-panel{
+  border:4px solid var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  font-size:4rem;
+  overflow:hidden;position:relative;
+}
+.cg-panel:nth-child(1){height:200px;grid-column:1/3;background:var(--red)}
+.cg-panel:nth-child(2){height:160px;background:var(--blue)}
+.cg-panel:nth-child(3){height:160px;background:#1a1a2e}
+.cg-panel:nth-child(4){height:120px;grid-column:1/3;background:var(--green)}
+.cg-panel-label{
+  position:absolute;bottom:8px;left:10px;
+  font-family:'Bangers',cursive;font-size:1rem;letter-spacing:2px;
+  color:rgba(255,255,255,0.5);
+}
+.cg-big-text{
+  font-family:'Bangers',cursive;font-size:3.5rem;letter-spacing:3px;
+  color:var(--yellow);-webkit-text-stroke:2px var(--ink);
+}
+.burst{
+  position:absolute;
+  background:var(--yellow);border:3px solid var(--ink);
+  font-family:'Bangers',cursive;font-size:1.1rem;letter-spacing:1px;
+  padding:8px 14px;color:var(--ink);
+  box-shadow:3px 3px 0 var(--ink);
+}
+.burst-1{top:-8px;right:20px;transform:rotate(6deg)}
+.burst-2{bottom:10px;right:-5px;transform:rotate(-4deg);background:var(--red);color:var(--white)}
+
+/* ── ACTION STRIP ── */
+.action-strip{
+  background:var(--red);
+  border-top:4px solid var(--ink);border-bottom:4px solid var(--ink);
+  display:flex;justify-content:space-around;align-items:center;
+  padding:1rem 3rem;overflow:hidden;
+}
+.action-strip-word{
+  font-family:'Bangers',cursive;font-size:3rem;letter-spacing:4px;
+  color:var(--white);-webkit-text-stroke:2px var(--ink);
+  transform:rotate(var(--r));
+  animation:pulse var(--d) ease-in-out infinite alternate;
+}
+@keyframes pulse{from{transform:rotate(var(--r)) scale(1)}to{transform:rotate(var(--r)) scale(1.1)}}
+
+/* ── SECTION BASE ── */
+.section-head{margin-bottom:3.5rem}
+.section-kicker{
+  font-family:'Permanent Marker',cursive;font-size:0.95rem;
+  color:var(--red);display:block;margin-bottom:0.4rem;
+}
+.section-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(2.8rem,5vw,4rem);
+  letter-spacing:3px;line-height:1;
+  color:var(--ink);
+}
+.section-title .accent{color:var(--red)}
+.zigzag{
+  height:12px;margin-top:1rem;
+  background:
+    linear-gradient(135deg,var(--ink) 25%,transparent 25%) -10px 0,
+    linear-gradient(225deg,var(--ink) 25%,transparent 25%) -10px 0,
+    linear-gradient(315deg,var(--ink) 25%,transparent 25%),
+    linear-gradient(45deg,var(--ink) 25%,transparent 25%);
+  background-size:20px 12px;
+  background-color:transparent;
+}
+.zigzag.yellow{
+  background:
+    linear-gradient(135deg,var(--yellow) 25%,transparent 25%) -10px 0,
+    linear-gradient(225deg,var(--yellow) 25%,transparent 25%) -10px 0,
+    linear-gradient(315deg,var(--yellow) 25%,transparent 25%),
+    linear-gradient(45deg,var(--yellow) 25%,transparent 25%);
+  background-size:20px 12px;background-color:transparent;
+}
+
+/* ── ABOUT ── */
+.about{background:var(--ink);padding:6rem 5rem;color:var(--white)}
+.about .section-title{color:var(--yellow)}
+.about .section-kicker{color:var(--orange)}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem}
+.about-card{
+  background:#161616;
+  border:3px solid #333;
+  padding:2rem 1.75rem;
+  position:relative;
+  transition:transform 0.2s,border-color 0.2s;
+  overflow:hidden;
+}
+.about-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--c,var(--yellow));
+}
+.about-card:hover{transform:translateY(-6px);border-color:var(--c,var(--yellow))}
+.about-card-num{
+  font-family:'Bangers',cursive;font-size:4rem;
+  color:rgba(255,255,255,0.06);
+  position:absolute;top:-10px;right:10px;line-height:1;letter-spacing:2px;
+}
+.about-card-icon{font-size:2.2rem;margin-bottom:1.25rem}
+.about-card h3{
+  font-family:'Bangers',cursive;font-size:1.7rem;letter-spacing:2px;
+  color:var(--white);margin-bottom:0.75rem;
+}
+.about-card p{font-size:0.95rem;line-height:1.7;color:#aaa}
+
+/* ── PICKS ── */
+.picks{background:var(--cream);padding:6rem 5rem;border-top:5px solid var(--ink)}
+.picks-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1.5rem;margin-top:0.5rem;
+}
+.pick-card{
+  background:var(--white);
+  border:4px solid var(--ink);
+  box-shadow:6px 6px 0 var(--ink);
+  overflow:hidden;
+  transition:transform 0.15s,box-shadow 0.15s;
+  cursor:pointer;
+}
+.pick-card:hover{transform:translate(-3px,-5px);box-shadow:9px 11px 0 var(--ink)}
+.pick-cover{
+  height:180px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:4.5rem;
+  border-bottom:4px solid var(--ink);
+  position:relative;overflow:hidden;
+}
+.pick-cover::after{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(0,0,0,0.12) 1.5px,transparent 1.5px);
+  background-size:10px 10px;
+}
+.pick-body{padding:1.25rem}
+.pick-card h4{
+  font-family:'Bangers',cursive;font-size:1.35rem;letter-spacing:1.5px;
+  margin-bottom:4px;color:var(--ink);
+}
+.pick-author{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:10px}
+.pick-stars{color:var(--red);font-size:1rem;letter-spacing:2px}
+.pick-badge{
+  display:inline-block;margin-top:10px;
+  font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  padding:3px 9px;border:2px solid var(--ink);
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials{
+  background:var(--blue);
+  padding:6rem 5rem;
+  border-top:5px solid var(--ink);
+  border-bottom:5px solid var(--ink);
+}
+.testimonials .section-title{color:var(--white)}
+.testimonials .section-kicker{color:var(--yellow)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:0.5rem}
+.testi-card{
+  background:var(--white);
+  border:4px solid var(--ink);
+  padding:1.75rem;
+  box-shadow:5px 5px 0 rgba(0,0,0,0.3);
+  position:relative;
+}
+.testi-bubble-tail{
+  position:absolute;bottom:-18px;left:28px;
+  width:0;height:0;
+  border-left:14px solid transparent;
+  border-right:14px solid transparent;
+  border-top:18px solid var(--ink);
+}
+.testi-bubble-tail::after{
+  content:'';position:absolute;
+  top:-20px;left:-11px;
+  width:0;height:0;
+  border-left:11px solid transparent;
+  border-right:11px solid transparent;
+  border-top:16px solid var(--white);
+}
+.testi-text{
+  font-family:'Permanent Marker',cursive;
+  font-size:0.95rem;line-height:1.7;color:var(--ink);
+  margin-bottom:1rem;
+}
+.testi-who{
+  display:flex;align-items:center;gap:10px;
+  margin-top:2rem;
+}
+.testi-avatar{
+  width:40px;height:40px;border-radius:50%;
+  border:3px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:0.9rem;color:var(--white);
+  flex-shrink:0;
+}
+.testi-name{font-weight:700;font-size:0.85rem;color:var(--ink)}
+.testi-since{font-size:0.75rem;color:#666}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);
+  border-top:5px solid var(--yellow);
+  padding:3rem 5rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{
+  font-family:'Bangers',cursive;font-size:2rem;letter-spacing:3px;color:var(--yellow);
+}
+.footer-copy{font-size:0.8rem;color:#666;letter-spacing:1px}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;text-decoration:none}
+.footer-links a:hover{color:var(--yellow)}
+
+/* ── FADE IN ── */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+/* ── ORIGINAL FLOATING PANELS ── */
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;min-height:92vh}
+.panel-stack{position:relative;width:360px;height:420px}
+.panel{position:absolute;border:5px solid var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center}
+.panel-1{width:260px;height:320px;top:30px;left:20px;background:var(--blue);box-shadow:8px 8px 0 var(--ink);transform:rotate(-3deg);animation:float1 4s ease-in-out infinite}
+.panel-2{width:220px;height:270px;top:80px;left:120px;background:var(--red);box-shadow:8px 8px 0 var(--ink);transform:rotate(4deg);animation:float2 5s ease-in-out infinite}
+.panel-inner{font-size:5rem}
+.speech-bubble{position:absolute;background:var(--white);border:4px solid var(--ink);border-radius:20px;padding:0.6rem 1.2rem;font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:1px;color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.bubble-1{top:0;right:0;transform:rotate(5deg)}
+.bubble-1::after{content:'';position:absolute;bottom:-16px;left:20px;border:8px solid transparent;border-top-color:var(--ink)}
+.bubble-1::before{content:'';position:absolute;bottom:-10px;left:22px;border:7px solid transparent;border-top-color:var(--white);z-index:1}
+.panel-zap{position:absolute;font-family:'Bangers',cursive;font-size:2.5rem;color:var(--yellow);-webkit-text-stroke:3px var(--ink);bottom:10px;right:10px;transform:rotate(-8deg);animation:zapani 0.8s ease-in-out infinite alternate}
+@keyframes float1{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-12px)}}
+@keyframes float2{0%,100%{transform:rotate(4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-8px)}}
+@keyframes zapani{0%{transform:rotate(-8deg) scale(1)}100%{transform:rotate(-8deg) scale(1.15)}}
+</style>
+</head>
+<body>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>EX POCKET COMIX</span><span class="dot">✦</span>
+    <span>TORONTO'S COMIC BOOK CLUB</span><span class="dot">✦</span>
+    <span>MONTHLY MEETUPS</span><span class="dot">✦</span>
+    <span>INDIE TO ICONIC</span><span class="dot">✦</span>
+    <span>NO GATEKEEPING</span><span class="dot">✦</span>
+    <span>EX POCKET COMIX</span><span class="dot">✦</span>
+    <span>TORONTO'S COMIC BOOK CLUB</span><span class="dot">✦</span>
+    <span>MONTHLY MEETUPS</span><span class="dot">✦</span>
+    <span>INDIE TO ICONIC</span><span class="dot">✦</span>
+    <span>NO GATEKEEPING</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    EX POCKET COMIX
+    <span class="nav-logo-badge">Est. 2021</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#picks">Picks</a></li>
+    <li><a href="#members">Members</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-dots"></div>
+
+  <div class="hero-left">
+    <div class="hero-tag">★ Toronto's Premier Comic Club ★</div>
+    <h1 class="hero-title">
+      EX<br>
+      <span class="outline">POCKET</span><br>
+      <span class="fill-red">COMIX</span>
+    </h1>
+    <p class="hero-desc">Where panels, pages &amp; passionate people collide every month. Indie gems to iconic runs — no gatekeeping, just great stories.</p>
+
+  </div>
+
+  <div class="hero-right">
+    <div class="panel-stack">
+      <div class="speech-bubble bubble-1">We need to talk about<br>issue #47…</div>
+      <div class="panel panel-1"><div class="panel-inner">🦸</div></div>
+      <div class="panel panel-2"><div class="panel-inner">💥</div></div>
+      <div class="panel-zap">POW!</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ACTION STRIP -->
+<div class="action-strip">
+  <span class="action-strip-word" style="--r:-4deg;--d:1.2s">BAM!</span>
+  <span class="action-strip-word" style="--r:3deg;--d:1.5s">ZAP!</span>
+  <span class="action-strip-word" style="--r:-2deg;--d:1.8s">POW!</span>
+  <span class="action-strip-word" style="--r:5deg;--d:1.1s">WHAM!</span>
+  <span class="action-strip-word" style="--r:-3deg;--d:2s">KAPOW!</span>
+  <span class="action-strip-word" style="--r:2deg;--d:1.4s">BOOM!</span>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-head fade-up">
+    <span class="section-kicker">// who we are</span>
+    <h2 class="section-title" style="color:var(--yellow)">WHAT WE'RE <span style="color:var(--orange)">ABOUT</span></h2>
+    <div class="zigzag yellow" style="max-width:200px;margin-top:1rem"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-card fade-up" style="--c:var(--yellow)">
+      <div class="about-card-num">01</div>
+      <div class="about-card-icon">📖</div>
+      <h3>Read Together</h3>
+      <p>One graphic novel or story arc every month — from underground zines to legendary runs. Everyone's welcome, no prior knowledge needed.</p>
+    </div>
+    <div class="about-card fade-up" style="--c:var(--red)">
+      <div class="about-card-num">02</div>
+      <div class="about-card-icon">🗣️</div>
+      <h3>Discuss &amp; Debate</h3>
+      <p>Monthly meetups where we break down the art, story, themes, and whether the ending actually made sense. Hot takes encouraged.</p>
+    </div>
+    <div class="about-card fade-up" style="--c:var(--blue)">
+      <div class="about-card-num">03</div>
+      <div class="about-card-icon">🎨</div>
+      <h3>Celebrate the Art</h3>
+      <p>We spotlight the artists, writers, and colorists behind the panels — because comics are a visual medium first and foremost.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PICKS -->
+<section class="picks" id="picks">
+  <div class="section-head fade-up">
+    <span class="section-kicker">// what we're reading</span>
+    <h2 class="section-title">CURRENT <span class="accent">PICKS</span></h2>
+    <div class="zigzag" style="max-width:200px;margin-top:1rem"></div>
+  </div>
+  <div class="picks-grid">
+    <div class="pick-card fade-up">
+      <div class="pick-cover" style="background:#1a0533">🌙</div>
+      <div class="pick-body">
+        <h4>Saga Vol. 1</h4>
+        <div class="pick-author">Vaughan &amp; Staples</div>
+        <div class="pick-stars">★★★★★</div>
+        <div class="pick-badge" style="background:var(--yellow)">May Pick</div>
+      </div>
+    </div>
+    <div class="pick-card fade-up">
+      <div class="pick-cover" style="background:#1a1a1a">🔬</div>
+      <div class="pick-body">
+        <h4>Watchmen</h4>
+        <div class="pick-author">Moore &amp; Gibbons</div>
+        <div class="pick-stars">★★★★★</div>
+        <div class="pick-badge" style="background:#ddd">Classic</div>
+      </div>
+    </div>
+    <div class="pick-card fade-up">
+      <div class="pick-cover" style="background:#2d1b69">🏙️</div>
+      <div class="pick-body">
+        <h4>Monstress</h4>
+        <div class="pick-author">Liu &amp; Takeda</div>
+        <div class="pick-stars">★★★★☆</div>
+        <div class="pick-badge" style="background:var(--red);color:var(--white)">Staff Fave</div>
+      </div>
+    </div>
+    <div class="pick-card fade-up">
+      <div class="pick-cover" style="background:#003087">⚡</div>
+      <div class="pick-body">
+        <h4>Hawkeye</h4>
+        <div class="pick-author">Fraction &amp; Aja</div>
+        <div class="pick-stars">★★★★★</div>
+        <div class="pick-badge" style="background:var(--blue);color:var(--white)">Must Read</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="members">
+  <div class="section-head fade-up">
+    <span class="section-kicker">// straight from the panels</span>
+    <h2 class="section-title" style="color:var(--white)">MEMBERS <span style="color:var(--yellow)">SPEAK</span></h2>
+    <div class="zigzag yellow" style="max-width:200px;margin-top:1rem"></div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <p class="testi-text">"I showed up not knowing anything about comics and now I have a shelf problem. No regrets. Best Tuesday of my month, every month."</p>
+      <div class="testi-bubble-tail"></div>
+      <div class="testi-who" style="margin-top:2.5rem">
+        <div class="testi-avatar" style="background:var(--red)">SR</div>
+        <div>
+          <div class="testi-name">Sofia R.</div>
+          <div class="testi-since">Member since 2022</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <p class="testi-text">"The debates get heated — in the best way. We spent 45 minutes on whether Rorschach is actually the villain. Worth every second."</p>
+      <div class="testi-bubble-tail"></div>
+      <div class="testi-who" style="margin-top:2.5rem">
+        <div class="testi-avatar" style="background:var(--blue)">JK</div>
+        <div>
+          <div class="testi-name">James K.</div>
+          <div class="testi-since">Member since 2021</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <p class="testi-text">"They introduced me to Monstress and I will never forgive them. Five stars. Absolutely devastated. Would recommend."</p>
+      <div class="testi-bubble-tail"></div>
+      <div class="testi-who" style="margin-top:2.5rem">
+        <div class="testi-avatar" style="background:var(--green)">MP</div>
+        <div>
+          <div class="testi-name">Maya P.</div>
+          <div class="testi-since">Member since 2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">EX POCKET COMIX</div>
+  <div class="footer-copy">© 2026 — Toronto's Comic Book Club — Made with panels &amp; passion</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#picks">Picks</a>
+    <a href="#members">Members</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

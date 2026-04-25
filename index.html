@@ -116,58 +116,30 @@ nav{
   border-left:6px solid var(--red);
   margin-bottom:2.5rem;
 }
-.hero-stats{display:flex;gap:2rem;margin-top:1rem}
-.hero-stat{text-align:center}
-.hero-stat-num{
-  font-family:'Bangers',cursive;font-size:2.8rem;
-  color:var(--ink);line-height:1;letter-spacing:2px;
-}
-.hero-stat-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444}
 
 .hero-right{
   position:relative;display:flex;align-items:center;justify-content:center;
   border-left:5px solid var(--ink);
-  background:var(--ink);overflow:hidden;
+  background:var(--ink);overflow:hidden;min-height:92vh;
 }
 .hero-right-dots{
   position:absolute;inset:0;
   background-image:radial-gradient(circle,rgba(255,215,0,0.15) 2px,transparent 2px);
   background-size:20px 20px;
 }
-.comic-grid{
-  position:relative;z-index:2;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:6px;padding:3rem 2.5rem;
-  width:100%;
-}
-.cg-panel{
-  border:4px solid var(--yellow);
-  display:flex;align-items:center;justify-content:center;
-  font-size:4rem;
-  overflow:hidden;position:relative;
-}
-.cg-panel:nth-child(1){height:200px;grid-column:1/3;background:var(--red)}
-.cg-panel:nth-child(2){height:160px;background:var(--blue)}
-.cg-panel:nth-child(3){height:160px;background:#1a1a2e}
-.cg-panel:nth-child(4){height:120px;grid-column:1/3;background:var(--green)}
-.cg-panel-label{
-  position:absolute;bottom:8px;left:10px;
-  font-family:'Bangers',cursive;font-size:1rem;letter-spacing:2px;
-  color:rgba(255,255,255,0.5);
-}
-.cg-big-text{
-  font-family:'Bangers',cursive;font-size:3.5rem;letter-spacing:3px;
-  color:var(--yellow);-webkit-text-stroke:2px var(--ink);
-}
-.burst{
-  position:absolute;
-  background:var(--yellow);border:3px solid var(--ink);
-  font-family:'Bangers',cursive;font-size:1.1rem;letter-spacing:1px;
-  padding:8px 14px;color:var(--ink);
-  box-shadow:3px 3px 0 var(--ink);
-}
-.burst-1{top:-8px;right:20px;transform:rotate(6deg)}
-.burst-2{bottom:10px;right:-5px;transform:rotate(-4deg);background:var(--red);color:var(--white)}
+.panel-stack{position:relative;width:360px;height:420px}
+.panel{position:absolute;border:5px solid var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center}
+.panel-1{width:260px;height:320px;top:30px;left:20px;background:var(--blue);box-shadow:8px 8px 0 var(--ink);transform:rotate(-3deg);animation:float1 4s ease-in-out infinite}
+.panel-2{width:220px;height:270px;top:80px;left:120px;background:var(--red);box-shadow:8px 8px 0 var(--ink);transform:rotate(4deg);animation:float2 5s ease-in-out infinite}
+.panel-inner{font-size:5rem}
+.speech-bubble{position:absolute;background:var(--white);border:4px solid var(--ink);border-radius:20px;padding:0.6rem 1.2rem;font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:1px;color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.bubble-1{top:0;right:0;transform:rotate(5deg)}
+.bubble-1::after{content:'';position:absolute;bottom:-16px;left:20px;border:8px solid transparent;border-top-color:var(--ink)}
+.bubble-1::before{content:'';position:absolute;bottom:-10px;left:22px;border:7px solid transparent;border-top-color:var(--white);z-index:1}
+.panel-zap{position:absolute;font-family:'Bangers',cursive;font-size:2.5rem;color:var(--yellow);-webkit-text-stroke:3px var(--ink);bottom:10px;right:10px;transform:rotate(-8deg);animation:zapani 0.8s ease-in-out infinite alternate}
+@keyframes float1{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-12px)}}
+@keyframes float2{0%,100%{transform:rotate(4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-8px)}}
+@keyframes zapani{0%{transform:rotate(-8deg) scale(1)}100%{transform:rotate(-8deg) scale(1.15)}}
 
 /* ── ACTION STRIP ── */
 .action-strip{
@@ -287,56 +259,49 @@ nav{
   padding:3px 9px;border:2px solid var(--ink);
 }
 
-/* ── TESTIMONIALS ── */
-.testimonials{
-  background:var(--blue);
+/* ── MEMBERS ── */
+.members{
+  background:var(--yellow);
   padding:6rem 5rem;
   border-top:5px solid var(--ink);
-  border-bottom:5px solid var(--ink);
 }
-.testimonials .section-title{color:var(--white)}
-.testimonials .section-kicker{color:var(--yellow)}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:0.5rem}
-.testi-card{
+.members .section-kicker{color:var(--red)}
+.members-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1.5rem;margin-top:0.5rem;
+}
+.member-card{
   background:var(--white);
   border:4px solid var(--ink);
-  padding:1.75rem;
-  box-shadow:5px 5px 0 rgba(0,0,0,0.3);
-  position:relative;
+  box-shadow:6px 6px 0 var(--ink);
+  padding:2rem 1.5rem;
+  text-align:center;
+  transition:transform 0.15s,box-shadow 0.15s;
 }
-.testi-bubble-tail{
-  position:absolute;bottom:-18px;left:28px;
-  width:0;height:0;
-  border-left:14px solid transparent;
-  border-right:14px solid transparent;
-  border-top:18px solid var(--ink);
-}
-.testi-bubble-tail::after{
-  content:'';position:absolute;
-  top:-20px;left:-11px;
-  width:0;height:0;
-  border-left:11px solid transparent;
-  border-right:11px solid transparent;
-  border-top:16px solid var(--white);
-}
-.testi-text{
-  font-family:'Permanent Marker',cursive;
-  font-size:0.95rem;line-height:1.7;color:var(--ink);
-  margin-bottom:1rem;
-}
-.testi-who{
-  display:flex;align-items:center;gap:10px;
-  margin-top:2rem;
-}
-.testi-avatar{
-  width:40px;height:40px;border-radius:50%;
-  border:3px solid var(--ink);
+.member-card:hover{transform:translate(-3px,-5px);box-shadow:9px 11px 0 var(--ink)}
+.member-avatar{
+  width:72px;height:72px;border-radius:50%;
+  border:4px solid var(--ink);
   display:flex;align-items:center;justify-content:center;
-  font-weight:900;font-size:0.9rem;color:var(--white);
-  flex-shrink:0;
+  font-size:2.2rem;
+  margin:0 auto 1.2rem;
 }
-.testi-name{font-weight:700;font-size:0.85rem;color:var(--ink)}
-.testi-since{font-size:0.75rem;color:#666}
+.member-card h4{
+  font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:2px;
+  color:var(--ink);margin-bottom:4px;
+}
+.member-role{
+  font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  color:#777;margin-bottom:12px;
+}
+.member-fave{
+  font-family:'Permanent Marker',cursive;font-size:0.82rem;
+  color:var(--ink);line-height:1.5;
+  background:var(--cream);
+  border:2px solid var(--ink);
+  padding:8px 10px;
+  margin-top:10px;
+}
 
 /* ── FOOTER ── */
 footer{
@@ -356,21 +321,6 @@ footer{
 /* ── FADE IN ── */
 .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
-/* ── ORIGINAL FLOATING PANELS ── */
-.hero-right{position:relative;display:flex;align-items:center;justify-content:center;min-height:92vh}
-.panel-stack{position:relative;width:360px;height:420px}
-.panel{position:absolute;border:5px solid var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center}
-.panel-1{width:260px;height:320px;top:30px;left:20px;background:var(--blue);box-shadow:8px 8px 0 var(--ink);transform:rotate(-3deg);animation:float1 4s ease-in-out infinite}
-.panel-2{width:220px;height:270px;top:80px;left:120px;background:var(--red);box-shadow:8px 8px 0 var(--ink);transform:rotate(4deg);animation:float2 5s ease-in-out infinite}
-.panel-inner{font-size:5rem}
-.speech-bubble{position:absolute;background:var(--white);border:4px solid var(--ink);border-radius:20px;padding:0.6rem 1.2rem;font-family:'Bangers',cursive;font-size:1.4rem;letter-spacing:1px;color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
-.bubble-1{top:0;right:0;transform:rotate(5deg)}
-.bubble-1::after{content:'';position:absolute;bottom:-16px;left:20px;border:8px solid transparent;border-top-color:var(--ink)}
-.bubble-1::before{content:'';position:absolute;bottom:-10px;left:22px;border:7px solid transparent;border-top-color:var(--white);z-index:1}
-.panel-zap{position:absolute;font-family:'Bangers',cursive;font-size:2.5rem;color:var(--yellow);-webkit-text-stroke:3px var(--ink);bottom:10px;right:10px;transform:rotate(-8deg);animation:zapani 0.8s ease-in-out infinite alternate}
-@keyframes float1{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-12px)}}
-@keyframes float2{0%,100%{transform:rotate(4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-8px)}}
-@keyframes zapani{0%{transform:rotate(-8deg) scale(1)}100%{transform:rotate(-8deg) scale(1.15)}}
 </style>
 </head>
 <body>
@@ -417,7 +367,6 @@ footer{
       <span class="fill-red">COMIX</span>
     </h1>
     <p class="hero-desc">Where panels, pages &amp; passionate people collide every month. Indie gems to iconic runs — no gatekeeping, just great stories.</p>
-
   </div>
 
   <div class="hero-right">
@@ -428,7 +377,6 @@ footer{
       <div class="panel-zap">POW!</div>
     </div>
   </div>
-
 </section>
 
 <!-- ACTION STRIP -->
@@ -473,7 +421,7 @@ footer{
 <!-- PICKS -->
 <section class="picks" id="picks">
   <div class="section-head fade-up">
-    <span class="section-kicker">// what we're making</span>
+    <span class="section-kicker">// what we're reading</span>
     <h2 class="section-title">CURRENT <span class="accent">PICKS</span></h2>
     <div class="zigzag" style="max-width:200px;margin-top:1rem"></div>
   </div>
@@ -482,7 +430,7 @@ footer{
       <div class="pick-cover" style="background:#1a0533">❓</div>
       <div class="pick-body">
         <h4>COMING SOON!</h4>
-        <div class="pick-author">??? amp; ???</div>
+        <div class="pick-author">??? &amp; ???</div>
         <div class="pick-stars">?????</div>
         <div class="pick-badge" style="background:var(--yellow)">May Pick</div>
       </div>
@@ -490,8 +438,8 @@ footer{
     <div class="pick-card fade-up">
       <div class="pick-cover" style="background:#1a1a1a">🕸️</div>
       <div class="pick-body">
-        <h4>Spiderman timewatch</h4>
-        <div class="pick-author">Nahmu &amp; none</div>
+        <h4>Spiderman Timewatch</h4>
+        <div class="pick-author">Nahmu &amp; None</div>
         <div class="pick-stars">★★★★★</div>
         <div class="pick-badge" style="background:#ddd">Classic</div>
       </div>
@@ -499,8 +447,8 @@ footer{
     <div class="pick-card fade-up">
       <div class="pick-cover" style="background:#2d1b69">🏙️</div>
       <div class="pick-body">
-        <h4>stickman kingdom</h4>
-        <div class="pick-author">all &amp; all</div>
+        <h4>Stickman Kingdom</h4>
+        <div class="pick-author">All &amp; All</div>
         <div class="pick-stars">★★★★☆</div>
         <div class="pick-badge" style="background:var(--red);color:var(--white)">Staff Fave</div>
       </div>
@@ -508,7 +456,7 @@ footer{
     <div class="pick-card fade-up">
       <div class="pick-cover" style="background:#003087">☄️</div>
       <div class="pick-body">
-        <h4>madaslate</h4>
+        <h4>Madaslate</h4>
         <div class="pick-author">Shivam &amp; Matt</div>
         <div class="pick-stars">★★★★★</div>
         <div class="pick-badge" style="background:var(--blue);color:var(--white)">Must Read</div>
@@ -516,7 +464,42 @@ footer{
     </div>
   </div>
 </section>
-  
+
+<!-- MEMBERS -->
+<section class="members" id="members">
+  <div class="section-head fade-up">
+    <span class="section-kicker">// the crew</span>
+    <h2 class="section-title">OUR <span class="accent">MEMBERS</span></h2>
+    <div class="zigzag" style="max-width:200px;margin-top:1rem"></div>
+  </div>
+  <div class="members-grid">
+    <div class="member-card fade-up">
+      <div class="member-avatar" style="background:var(--blue)">🦸</div>
+      <h4>Nahmu</h4>
+      <div class="member-role">Co-Founder · Pick Master</div>
+      <div class="member-fave">"Spiderman Timewatch changed everything for me."</div>
+    </div>
+    <div class="member-card fade-up">
+      <div class="member-avatar" style="background:var(--red)">💥</div>
+      <h4>Shivam</h4>
+      <div class="member-role">Co-Founder · Art Critic</div>
+      <div class="member-fave">"Madaslate is a masterpiece. Full stop."</div>
+    </div>
+    <div class="member-card fade-up">
+      <div class="member-avatar" style="background:var(--green)">🎨</div>
+      <h4>Matt</h4>
+      <div class="member-role">Member · Hot Take Machine</div>
+      <div class="member-fave">"The coloring in Madaslate deserves its own award."</div>
+    </div>
+    <div class="member-card fade-up">
+      <div class="member-avatar" style="background:var(--ink)">⭐</div>
+      <h4>You?</h4>
+      <div class="member-role">Future Member</div>
+      <div class="member-fave">"Join us — no gatekeeping, just great comics."</div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">EX POCKET COMIX</div>
